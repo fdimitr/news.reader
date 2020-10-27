@@ -25,9 +25,9 @@ namespace News.Web.Api.Controllers
 
         [HttpGet]
         [SecuredEnableQueryAttribute(AllowedQueryOptions = AllowedQueryOptions.Filter, AllowedFunctions = AllowedFunctions.StartsWith)]
-        public IQueryable<NewsSource> Get()
+        public IQueryable<Source> Get()
         {
-            return _dataContext.NewsSources;
+            return _dataContext.Sources;
         }
     }
 }

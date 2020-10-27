@@ -33,6 +33,10 @@ namespace News.Web.Api
             services.AddControllers();
             services.AddOData();
             services.AddDbContext<DataContext>(options=>options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")));
+
+            //For migration
+            //services.AddDbContext<DataContext>(options => options.UseNpgsql("Server=localhost;UserName=postgres;Password=sqlrubin;Port=5432;Database=news_db;"));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "News.Web.Api", Version = "v1" });
@@ -69,7 +73,7 @@ namespace News.Web.Api
         {
             var builder = new ODataConventionModelBuilder(serviceProvider);
             builder.EntitySet<WeatherForecast>("WeatherForecast");
-            builder.EntitySet<NewsSource>("News");
+            builder.EntitySet<Source>("News");
             return builder.GetEdmModel();
         }
 
