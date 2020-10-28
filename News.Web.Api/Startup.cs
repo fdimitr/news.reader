@@ -10,8 +10,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OData.Edm;
 using Microsoft.OpenApi.Models;
+using News.Web.Api.BusinessLogic;
+using News.Web.Api.BusinessLogic.Interfaces;
 using News.Web.Api.DataAccess;
 using News.Web.Api.Models;
+using News.Web.Api.Repository;
+using News.Web.Api.Repository.Interfaces;
 using System;
 using System.Linq;
 
@@ -36,6 +40,9 @@ namespace News.Web.Api
 
             //For migration
             //services.AddDbContext<DataContext>(options => options.UseNpgsql("Server=localhost;UserName=postgres;Password=sqlrubin;Port=5432;Database=news_db;"));
+
+            services.AddScoped<IGroupLogic, GroupLogic>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
 
             services.AddSwaggerGen(c =>
             {
@@ -73,7 +80,7 @@ namespace News.Web.Api
         {
             var builder = new ODataConventionModelBuilder(serviceProvider);
             builder.EntitySet<WeatherForecast>("WeatherForecast");
-            builder.EntitySet<Source>("News");
+            builder.EntitySet<Group>("Group");
             return builder.GetEdmModel();
         }
 

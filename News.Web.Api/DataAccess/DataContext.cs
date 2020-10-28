@@ -23,7 +23,6 @@ namespace News.Web.Api.DataAccess
             // Default values
             modelBuilder.Entity<Models.News>().Property(e => e.TimeStamp).HasColumnType("timestamp without time zone").HasDefaultValueSql("NOW()").ValueGeneratedOnAdd();
 
-
             modelBuilder.Entity<Source>().Property<DateTime?>(e => e.LastLoadedTime).HasConversion(
                  v => v.HasValue ? v.Value.ToUniversalTime() : v,
                  v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v);
